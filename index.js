@@ -1,6 +1,5 @@
 const express = require('express')
 const {google} = require('googleapis');
-const keys = require('./keys.json')
 
 //initialize express
 const app = express()
