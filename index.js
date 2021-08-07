@@ -1,12 +1,12 @@
 const express = require('express')
 const {google} = require('googleapis');
-const keys = require('./google-credentials.json')
+var favicon = require('serve-favicon');
 
 //initialize express
 const app = express()
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 //set up template engine to render html files
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
