@@ -1,5 +1,7 @@
 const express = require('express')
-const GoogleAuth = require('google-auth-library');
+const {google} = require('googleapis');
+const keys = require('./keys.json')
+
 //initialize express
 const app = express()
 app.use(express.urlencoded({extended: true}));
@@ -11,27 +13,15 @@ app.engine('html', require('ejs').renderFile);
 
 // index route
 app.get('/', async (request, response) => {
-    function authorize() {
-        return new Promise(resolve => {
-            const authFactory = new GoogleAuth();
-            const jwtClient = new authFactory.JWT(
-                process.env.GOOGLE_CLIENT_EMAIL, // defined in Heroku
-                null,
-                process.env.GOOGLE_PRIVATE_KEY, // defined in Heroku
-                ['https://www.googleapis.com/auth/spreadsheets']
-            );
 
-            jwtClient.authorize(() => resolve(jwtClient));
-        });
-    }
-    // const auth = new google.auth.GoogleAuth({
-    //     keyFile: "keys.json", //the key file
-    //     //url to spreadsheets API
-    //     scopes: "",
-    // });
+    const auth = new google.auth.GoogleAuth({
+        keyFile: "keys.json", //the key file
+        //url to spreadsheets API
+        scopes: "https://www.googleapis.com/auth/spreadsheets",
+    });
 
     //Auth client Object
-    const authClientObject = await authorize();
+    const authClientObject = await auth.getClient();
 
     //Google sheets instance
     const googleSheetsInstance = google.sheets({version: "v4", auth: authClientObject});
@@ -60,8 +50,9 @@ app.get('/', async (request, response) => {
     response.render('index', {totalStones: totalStones, wands:wands, leather:leather, amulet:amulet, escape:escape});
 })
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
 //start server
-const server = app.listen(process.env.PORT || PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server started on port localhost:${PORT}`);
 });
