@@ -1,6 +1,6 @@
 const express = require('express')
 const {google} = require('googleapis');
-const keys = require('./keys.json')
+const keys = require('./google-credentials.json')
 
 //initialize express
 const app = express()
@@ -15,7 +15,7 @@ app.engine('html', require('ejs').renderFile);
 app.get('/', async (request, response) => {
 
     const auth = new google.auth.GoogleAuth({
-        keyFile: "keys.json", //the key file
+        keyFile: "google-credentials.json", //the key file
         //url to spreadsheets API
         scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
