@@ -61,9 +61,8 @@ app.get('/', async (request, response) => {
     response.render('index', {totalStones: totalStones, wands:wands, leather:leather, amulet:amulet, escape:escape});
 })
 
-const PORT = 3000;
-
+const PORT = 5000;
 //start server
-const server = app.listen(PORT, () => {
+const server = app.listen(process.env.PORT || PORT, () => {
     console.log(`Server started on port localhost:${PORT}`);
 });
