@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<title>Tul Breachstone Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+	background-image: url('./images/Tul_Creeping_Avalanche.png');
+	min-height: 100%;
+	background-position: center;
+	background-size: cover;
+}
+</style>
+<head>
+</head>
+<body>
+
+	<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+		<div class="w3-display-topleft w3-padding-large w3-xlarge">
+			Tul's Pure Breachstones
+		</div>
+		<div class="w3-display-middle">
+			<h1 class="w3-jumbo w3-animate-top">TOTAL STONES: <%= totalStones %></h1>
+			<hr class="w3-border-grey" style="margin:auto;width:40%">
+			<p class="w3-xlarge w3-center">Spiral Wand: <b><%= wands.total %></b> (<%= wands.percent %>) | Odds: <%= wands.odds %></p>
+			<p class="w3-xlarge w3-center">Coronal Leather: <b><%= leather.total %></b> (<%= leather.percent %>) | Odds: <%= leather.odds %></p>
+			<p class="w3-xlarge w3-center">Jade Amulet: <b><%= amulet.total %></b> (<%= amulet.percent %>) | Odds: <%= amulet.odds %></p>
+			<p class="w3-xlarge w3-center">The Escape: <b><%= escape.total %></b> (<%= escape.percent %>) | Odds: <%= escape.odds %></p>
+		</div>
+	</div>
+
+</body>
+</html>
