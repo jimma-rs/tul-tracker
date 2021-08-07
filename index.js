@@ -13,14 +13,27 @@ app.engine('html', require('ejs').renderFile);
 
 // index route
 app.get('/', async (request, response) => {
-    const auth = new google.auth.GoogleAuth({
-        keyFile: "keys.json", //the key file
-        //url to spreadsheets API
-        scopes: "https://www.googleapis.com/auth/spreadsheets",
-    });
+    function authorize() {
+        return new Promise(resolve => {
+            const authFactory = new GoogleAuth();
+            const jwtClient = new authFactory.JWT(
+                process.env.GOOGLE_CLIENT_EMAIL, // defined in Heroku
+                null,
+                process.env.GOOGLE_PRIVATE_KEY, // defined in Heroku
+                ['https://www.googleapis.com/auth/spreadsheets']
+            );
+
+            jwtClient.authorize(() => resolve(jwtClient));
+        });
+    }
+    // const auth = new google.auth.GoogleAuth({
+    //     keyFile: "keys.json", //the key file
+    //     //url to spreadsheets API
+    //     scopes: "",
+    // });
 
     //Auth client Object
-    const authClientObject = await auth.getClient();
+    const authClientObject = await authorize();
 
     //Google sheets instance
     const googleSheetsInstance = google.sheets({version: "v4", auth: authClientObject});
