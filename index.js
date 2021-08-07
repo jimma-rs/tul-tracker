@@ -44,8 +44,8 @@ app.get('/', async (request, response) => {
     let spreadsheetValues = readData.data.values;
     let totalStones = spreadsheetValues[1][1];
     let wands = {total:spreadsheetValues[3][1], percent:spreadsheetValues[3][2], odds:spreadsheetValues[3][3]};
-    let leather = {total:spreadsheetValues[4][1], percent:spreadsheetValues[4][2], odds:spreadsheetValues[4][3]};
-    let amulet = {total:spreadsheetValues[5][1], percent:spreadsheetValues[5][2], odds:spreadsheetValues[5][3]};
+    let leather = {total:spreadsheetValues[5][1], percent:spreadsheetValues[5][2], odds:spreadsheetValues[5][3]};
+    let amulet = {total:spreadsheetValues[4][1], percent:spreadsheetValues[4][2], odds:spreadsheetValues[4][3]};
     let escape = {total:spreadsheetValues[6][1], percent:spreadsheetValues[6][2], odds:spreadsheetValues[6][3]};
     response.render('index', {totalStones: totalStones, wands:wands, leather:leather, amulet:amulet, escape:escape});
 })
