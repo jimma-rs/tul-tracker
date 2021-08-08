@@ -2,6 +2,16 @@ const express = require('express')
 const {google} = require('googleapis');
 var favicon = require('serve-favicon');
 
+const TOTAL_ROW = 1;
+const WANDS_ROW = 3;
+const LEATHER_ROW = 4;
+const AMULET_ROW = 5;
+const ESCAPE_ROW = 6;
+
+const TOTAL_COLUMN = 1;
+const PERCENTAGE_COLUMN = 2;
+const ODDS_COLUMN = 3;
+
 //initialize express
 const app = express()
 app.use(express.urlencoded({extended: true}));
@@ -42,11 +52,12 @@ app.get('/', async (request, response) => {
         range: "Sheet2!A:D", //range of cells to read from.
     });
     let spreadsheetValues = readData.data.values;
-    let totalStones = spreadsheetValues[1][1];
-    let wands = {total:spreadsheetValues[3][1], percent:spreadsheetValues[3][2], odds:spreadsheetValues[3][3]};
-    let leather = {total:spreadsheetValues[5][1], percent:spreadsheetValues[5][2], odds:spreadsheetValues[5][3]};
-    let amulet = {total:spreadsheetValues[4][1], percent:spreadsheetValues[4][2], odds:spreadsheetValues[4][3]};
-    let escape = {total:spreadsheetValues[6][1], percent:spreadsheetValues[6][2], odds:spreadsheetValues[6][3]};
+
+    let totalStones = spreadsheetValues[TOTAL_ROW][TOTAL_COLUMN];
+    let wands = {total:spreadsheetValues[WANDS_ROW][TOTAL_COLUMN], percent:spreadsheetValues[WANDS_ROW][PERCENTAGE_COLUMN], odds:spreadsheetValues[WANDS_ROW][ODDS_COLUMN]};
+    let amulet = {total:spreadsheetValues[LEATHER_ROW][TOTAL_COLUMN], percent:spreadsheetValues[LEATHER_ROW][PERCENTAGE_COLUMN], odds:spreadsheetValues[LEATHER_ROW][ODDS_COLUMN]};
+    let leather = {total:spreadsheetValues[AMULET_ROW][TOTAL_COLUMN], percent:spreadsheetValues[AMULET_ROW][PERCENTAGE_COLUMN], odds:spreadsheetValues[AMULET_ROW][ODDS_COLUMN]};
+    let escape = {total:spreadsheetValues[ESCAPE_ROW][TOTAL_COLUMN], percent:spreadsheetValues[ESCAPE_ROW][PERCENTAGE_COLUMN], odds:spreadsheetValues[ESCAPE_ROW][ODDS_COLUMN]};
     response.render('index', {totalStones: totalStones, wands:wands, leather:leather, amulet:amulet, escape:escape});
 })
 
